@@ -1,6 +1,5 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { BlogEntity } from './blog.entity';
 import { BlogRepository } from './blog.repository';
 
 @Controller('blog')
