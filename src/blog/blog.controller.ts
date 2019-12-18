@@ -6,7 +6,7 @@ import { BlogRepository } from './blog.repository';
 @Controller('blog')
 export class BlogController {
   constructor(
-    @InjectRepository(BlogEntity)
+    @InjectRepository(BlogRepository)
     private blogDb: BlogRepository,
   ) {}
 
