@@ -2,11 +2,12 @@ import {
   BaseEntity,
   Column,
   CreateDateColumn,
-  Entity,
+  Entity, ManyToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
- 
+import { TagEntity } from '../tag/tag.entity';
+
 
 @Entity()
 export  class BlogEntity extends  BaseEntity{
@@ -21,11 +22,12 @@ export  class BlogEntity extends  BaseEntity{
   //标题
   @Column() title:string;
   //html
-  @Column({type:'text'})  html:string;
+  @Column({type:'mediumtext'})  html:string;
   //简介
   @Column() des:string;
   //点赞
   @Column({default:0}) likes :number
- 
 
+  @ManyToMany(type => TagEntity,tag=>tag.blogs)
+  tags:TagEntity[]
 }
