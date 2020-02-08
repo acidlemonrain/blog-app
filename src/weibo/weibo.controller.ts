@@ -1,7 +1,7 @@
 import {
   Body,
   Controller,
-  Get,
+  Get, Param,
   Post,
   UploadedFiles,
   UseInterceptors,
@@ -13,6 +13,7 @@ import {
 } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
+import { unlink } from 'fs';
 @Controller('weibo')
 export class WeiboController {
   constructor(
@@ -26,6 +27,16 @@ export class WeiboController {
     return await this.weiboDb.find({order:{gen:'DESC'}})
   }
 
+
+  @Get('/delete/:id')
+  async  delete_weibo(@Param('id') id){
+    const  weibo = await this.weiboDb.findOne(id)
+    weibo.images.split(',').forEach(image=>{
+      unlink('files/'+image,()=>{})
+    })
+    this.weiboDb.delete(id);
+
+  }
 
   //创建新的微博
 
